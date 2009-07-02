@@ -2,6 +2,7 @@ TYPEMAP
 
 SPDConnection *  T_CONNECTION
 SPDConnectionMode  T_CONNECTION_MODE
+SPDPriority  T_PRIORITY
 
 OUTPUT
 
@@ -24,5 +25,28 @@ T_CONNECTION_MODE
         }
         else {
             croak (\"invalid connection mode %s\", __tMp);
+        }
+    }
+
+T_PRIORITY
+    {
+        const char *__tMp = SvPV_nolen ($arg);
+        if (strEQ (__tMp, \"important\")) {
+            $var = SPD_IMPORTANT;
+        }
+        else if (strEQ (__tMp, \"message\")) {
+            $var = SPD_MESSAGE;
+        }
+        else if (strEQ (__tMp, \"text\")) {
+            $var = SPD_TEXT;
+        }
+        else if (strEQ (__tMp, \"notification\")) {
+            $var = SPD_NOTIFICATION;
+        }
+        else if (strEQ (__tMp, \"progress\")) {
+            $var = SPD_PROGRESS;
+        }
+        else {
+            croak (\"invalid priority %s\", __tMp);
         }
     }

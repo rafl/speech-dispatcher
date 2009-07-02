@@ -63,3 +63,15 @@ DESTROY (connection)
         SPDConnection *connection
     CODE:
         spd_close (connection);
+
+int
+spd_say (connection, text, priority=SPD_TEXT)
+        SPDConnection *connection
+        const char *text
+        SPDPriority priority
+    C_ARGS:
+        connection, priority, text
+    POSTCALL:
+        if (RETVAL < 0) {
+            croak ("failed to say text");
+        }
