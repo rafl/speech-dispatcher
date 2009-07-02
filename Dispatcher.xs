@@ -75,3 +75,28 @@ spd_say (connection, text, priority=SPD_TEXT)
         if (RETVAL < 0) {
             croak ("failed to say text");
         }
+
+int
+spd_stop (connection)
+        SPDConnection *connection
+    POSTCALL:
+        if (RETVAL < 0) {
+            croak ("failed to stop message");
+        }
+
+int
+spd_stop_all (connection)
+        SPDConnection *connection
+    POSTCALL:
+        if (RETVAL < 0) {
+            croak ("failed to stop messages");
+        }
+
+int
+spd_stop_uid (connection, target_uid)
+        SPDConnection *connection
+        int target_uid
+    POSTCALL:
+        if (RETVAL < 0) {
+            croak ("failed to stop message");
+        }
