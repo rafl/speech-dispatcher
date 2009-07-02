@@ -511,9 +511,24 @@ spd_list_modules (connection)
 	PPCODE:
 		modules = spd_list_modules (connection);
 		if (!modules) {
-			croak ("failed to get modules list");
+			croak ("failed to get module list");
 		}
 
 		for (i = modules; *i; i++) {
+			mXPUSHs (newSVpv (*i, 0));
+		}
+
+void
+spd_list_voices (connection)
+		SPDConnection *connection
+	PREINIT:
+		char **voices, **i;
+	PPCODE:
+		voices = spd_list_voices (connection);
+		if (!voices) {
+			croak ("failed to get voice list");
+		}
+
+		for (i = voices; *i; i++) {
 			mXPUSHs (newSVpv (*i, 0));
 		}
