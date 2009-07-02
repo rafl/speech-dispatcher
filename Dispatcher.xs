@@ -150,3 +150,28 @@ spd_pause_uid (connection, target_uid)
         if (RETVAL < 0) {
             croak ("failed to pause messages");
         }
+
+int
+spd_resume (connection)
+        SPDConnection *connection
+    POSTCALL:
+        if (RETVAL < 0) {
+            croak ("failed to resume messages");
+        }
+
+int
+spd_resume_all (connection)
+        SPDConnection *connection
+    POSTCALL:
+        if (RETVAL < 0) {
+            croak ("failed to resume messages");
+        }
+
+int
+spd_resume_uid (connection, target_uid)
+        SPDConnection *connection
+        int target_uid
+    POSTCALL:
+        if (RETVAL < 0) {
+            croak ("failed to resume messages");
+        }
