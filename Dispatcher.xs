@@ -502,3 +502,18 @@ spd_set_capital_letters_uid (connection, type, uid)
 		if (RETVAL < 0) {
 			croak ("failed to set capital letters");
 		}
+
+void
+spd_list_modules (connection)
+		SPDConnection *connection
+	PREINIT:
+		char **modules, **i;
+	PPCODE:
+		modules = spd_list_modules (connection);
+		if (!modules) {
+			croak ("failed to get modules list");
+		}
+
+		for (i = modules; *i; i++) {
+			mXPUSHs (newSVpv (*i, 0));
+		}
