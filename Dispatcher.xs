@@ -41,6 +41,8 @@ ptr_from_sv (SV *sv, const char *class)
     return (void *)mg->mg_ptr;
 }
 
+typedef int voice_rate_t;
+
 MODULE = Speech::Dispatcher  PACKAGE = Speech::Dispatcher  PREFIX = spd_
 
 PROTOTYPES: DISABLED
@@ -273,4 +275,13 @@ spd_set_synthesis_voice (connection, voice_name)
 	POSTCALL:
 		if (RETVAL < 0) {
 			croak ("failed to set voice");
+		}
+
+int
+spd_set_voice_rate (connection, rate)
+		SPDConnection *connection
+		voice_rate_t rate
+	POSTCALL:
+		if (RETVAL < 0) {
+			croak ("failed to set voice rate");
 		}

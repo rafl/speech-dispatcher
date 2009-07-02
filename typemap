@@ -7,6 +7,7 @@ SPDDataMode  T_MODE
 SPDPunctuation  T_PUNCTUATION
 SPDSpelling  T_SPELLING
 SPDVoiceType  T_VOICE_TYPE
+voice_rate_t  T_VOICE_RATE
 
 OUTPUT
 
@@ -130,4 +131,10 @@ T_VOICE_TYPE
 		else {
 			croak (\"invalid voice type %s\", __tMp);
 		}
+	}
+
+T_VOICE_RATE
+	$var = ($type)SvIV ($arg);
+	if ($var < -100 || $var > 100) {
+		croak (\"invalid voice rate %d - needs to be between -100 and 100\", $var);
 	}
