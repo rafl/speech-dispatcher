@@ -265,3 +265,12 @@ spd_set_voice_type (connection, voice)
 		if (RETVAL < 0) {
 			croak ("failed to set voice type");
 		}
+
+int
+spd_set_synthesis_voice (connection, voice_name)
+		SPDConnection *connection
+		const char *voice_name
+	POSTCALL:
+		if (RETVAL < 0) {
+			croak ("failed to set voice");
+		}
