@@ -78,7 +78,7 @@ spd_say (connection, text, priority=SPD_TEXT)
             croak ("failed to say text");
         }
 
-int
+NO_OUTPUT int
 spd_stop (connection)
         SPDConnection *connection
     POSTCALL:
@@ -86,7 +86,7 @@ spd_stop (connection)
             croak ("failed to stop messages");
         }
 
-int
+NO_OUTPUT int
 spd_stop_all (connection)
         SPDConnection *connection
     POSTCALL:
@@ -94,7 +94,7 @@ spd_stop_all (connection)
             croak ("failed to stop messages");
         }
 
-int
+NO_OUTPUT int
 spd_stop_uid (connection, target_uid)
         SPDConnection *connection
         int target_uid
@@ -103,7 +103,7 @@ spd_stop_uid (connection, target_uid)
             croak ("failed to stop messages");
         }
 
-int
+NO_OUTPUT int
 spd_cancel (connection)
         SPDConnection *connection
     POSTCALL:
@@ -111,7 +111,7 @@ spd_cancel (connection)
             croak ("failed to cancel messages");
         }
 
-int
+NO_OUTPUT int
 spd_cancel_all (connection)
         SPDConnection *connection
     POSTCALL:
@@ -119,7 +119,7 @@ spd_cancel_all (connection)
             croak ("failed to cancel messages");
         }
 
-int
+NO_OUTPUT int
 spd_cancel_uid (connection, target_uid)
         SPDConnection *connection
         int target_uid
@@ -128,7 +128,7 @@ spd_cancel_uid (connection, target_uid)
             croak ("failed to cancel messages");
         }
 
-int
+NO_OUTPUT int
 spd_pause (connection)
         SPDConnection *connection
     POSTCALL:
@@ -136,7 +136,7 @@ spd_pause (connection)
             croak ("failed to pause messages");
         }
 
-int
+NO_OUTPUT int
 spd_pause_all (connection)
         SPDConnection *connection
     POSTCALL:
@@ -144,7 +144,7 @@ spd_pause_all (connection)
             croak ("failed to pause messages");
         }
 
-int
+NO_OUTPUT int
 spd_pause_uid (connection, target_uid)
         SPDConnection *connection
         int target_uid
@@ -153,7 +153,7 @@ spd_pause_uid (connection, target_uid)
             croak ("failed to pause messages");
         }
 
-int
+NO_OUTPUT int
 spd_resume (connection)
         SPDConnection *connection
     POSTCALL:
@@ -161,7 +161,7 @@ spd_resume (connection)
             croak ("failed to resume messages");
         }
 
-int
+NO_OUTPUT int
 spd_resume_all (connection)
         SPDConnection *connection
     POSTCALL:
@@ -169,7 +169,7 @@ spd_resume_all (connection)
             croak ("failed to resume messages");
         }
 
-int
+NO_OUTPUT int
 spd_resume_uid (connection, target_uid)
         SPDConnection *connection
         int target_uid
@@ -214,7 +214,7 @@ spd_sound_icon (connection, icon_name, priority=SPD_TEXT)
             croak ("failed to say sound icon");
         }
 
-int
+NO_OUTPUT int
 spd_set_data_mode (connection, mode)
 		SPDConnection *connection
 		SPDDataMode mode
@@ -223,7 +223,7 @@ spd_set_data_mode (connection, mode)
 			croak ("failed to set data mode");
 		}
 
-int
+NO_OUTPUT int
 spd_set_language (connection, language)
 		SPDConnection *connection
 		const char *language
@@ -232,7 +232,7 @@ spd_set_language (connection, language)
 			croak ("failed to set language");
 		}
 
-int
+NO_OUTPUT int
 spd_set_language_all (connection, language)
 		SPDConnection *connection
 		const char *language
@@ -241,7 +241,7 @@ spd_set_language_all (connection, language)
 			croak ("failed to set language");
 		}
 
-int
+NO_OUTPUT int
 spd_set_language_uid (connection, language, uid)
 		SPDConnection *connection
 		const char *language
@@ -251,7 +251,7 @@ spd_set_language_uid (connection, language, uid)
 			croak ("failed to set language");
 		}
 
-int
+NO_OUTPUT int
 spd_set_output_module (connection, output_module)
 		SPDConnection *connection
 		const char *output_module
@@ -260,7 +260,7 @@ spd_set_output_module (connection, output_module)
 			croak ("failed to set output module");
 		}
 
-int
+NO_OUTPUT int
 spd_set_output_module_all (connection, output_module)
 		SPDConnection *connection
 		const char *output_module
@@ -269,7 +269,7 @@ spd_set_output_module_all (connection, output_module)
 			croak ("failed to set output module");
 		}
 
-int
+NO_OUTPUT int
 spd_set_output_module_uid (connection, output_module, uid)
 		SPDConnection *connection
 		const char *output_module
@@ -279,7 +279,7 @@ spd_set_output_module_uid (connection, output_module, uid)
 			croak ("failed to set output module");
 		}
 
-int
+NO_OUTPUT int
 spd_set_punctuation (connection, type)
 		SPDConnection *connection
 		SPDPunctuation type
@@ -288,7 +288,7 @@ spd_set_punctuation (connection, type)
 			croak ("failed to set puctuation");
 		}
 
-int
+NO_OUTPUT int
 spd_set_punctuation_all (connection, type)
 		SPDConnection *connection
 		SPDPunctuation type
@@ -297,7 +297,7 @@ spd_set_punctuation_all (connection, type)
 			croak ("failed to set puctuation");
 		}
 
-int
+NO_OUTPUT int
 spd_set_punctuation_uid (connection, type, uid)
 		SPDConnection *connection
 		SPDPunctuation type
@@ -307,7 +307,7 @@ spd_set_punctuation_uid (connection, type, uid)
 			croak ("failed to set puctuation");
 		}
 
-int
+NO_OUTPUT int
 spd_set_spelling (connection, type)
 		SPDConnection *connection
 		SPDSpelling type
@@ -316,7 +316,7 @@ spd_set_spelling (connection, type)
 			croak ("failed to set spelling");
 		}
 
-int
+NO_OUTPUT int
 spd_set_spelling_all (connection, type)
 		SPDConnection *connection
 		SPDSpelling type
@@ -325,7 +325,7 @@ spd_set_spelling_all (connection, type)
 			croak ("failed to set spelling");
 		}
 
-int
+NO_OUTPUT int
 spd_set_spelling_uid (connection, type, uid)
 		SPDConnection *connection
 		SPDSpelling type
@@ -335,7 +335,7 @@ spd_set_spelling_uid (connection, type, uid)
 			croak ("failed to set spelling");
 		}
 
-int
+NO_OUTPUT int
 spd_set_voice_type (connection, voice)
 		SPDConnection *connection
 		SPDVoiceType voice
@@ -344,7 +344,7 @@ spd_set_voice_type (connection, voice)
 			croak ("failed to set voice type");
 		}
 
-int
+NO_OUTPUT int
 spd_set_voice_type_all (connection, voice)
 		SPDConnection *connection
 		SPDVoiceType voice
@@ -353,7 +353,7 @@ spd_set_voice_type_all (connection, voice)
 			croak ("failed to set voice type");
 		}
 
-int
+NO_OUTPUT int
 spd_set_voice_type_uid (connection, voice, uid)
 		SPDConnection *connection
 		SPDVoiceType voice
@@ -363,7 +363,7 @@ spd_set_voice_type_uid (connection, voice, uid)
 			croak ("failed to set voice type");
 		}
 
-int
+NO_OUTPUT int
 spd_set_synthesis_voice (connection, voice_name)
 		SPDConnection *connection
 		const char *voice_name
@@ -372,7 +372,7 @@ spd_set_synthesis_voice (connection, voice_name)
 			croak ("failed to set voice");
 		}
 
-int
+NO_OUTPUT int
 spd_set_synthesis_voice_all (connection, voice_name)
 		SPDConnection *connection
 		const char *voice_name
@@ -381,7 +381,7 @@ spd_set_synthesis_voice_all (connection, voice_name)
 			croak ("failed to set voice");
 		}
 
-int
+NO_OUTPUT int
 spd_set_synthesis_voice_uid (connection, voice_name, uid)
 		SPDConnection *connection
 		const char *voice_name
@@ -391,7 +391,7 @@ spd_set_synthesis_voice_uid (connection, voice_name, uid)
 			croak ("failed to set voice");
 		}
 
-int
+NO_OUTPUT int
 spd_set_voice_rate (connection, rate)
 		SPDConnection *connection
 		voice_rate_t rate
@@ -400,7 +400,7 @@ spd_set_voice_rate (connection, rate)
 			croak ("failed to set voice rate");
 		}
 
-int
+NO_OUTPUT int
 spd_set_voice_rate_all (connection, rate)
 		SPDConnection *connection
 		voice_rate_t rate
@@ -409,7 +409,7 @@ spd_set_voice_rate_all (connection, rate)
 			croak ("failed to set voice rate");
 		}
 
-int
+NO_OUTPUT int
 spd_set_voice_rate_uid (connection, rate, uid)
 		SPDConnection *connection
 		voice_rate_t rate
@@ -419,7 +419,7 @@ spd_set_voice_rate_uid (connection, rate, uid)
 			croak ("failed to set voice rate");
 		}
 
-int
+NO_OUTPUT int
 spd_set_voice_pitch (connection, pitch)
 		SPDConnection *connection
 		voice_rate_t pitch
@@ -428,7 +428,7 @@ spd_set_voice_pitch (connection, pitch)
 			croak ("failed to set voice pitch");
 		}
 
-int
+NO_OUTPUT int
 spd_set_voice_pitch_all (connection, pitch)
 		SPDConnection *connection
 		voice_rate_t pitch
@@ -437,7 +437,7 @@ spd_set_voice_pitch_all (connection, pitch)
 			croak ("failed to set voice pitch");
 		}
 
-int
+NO_OUTPUT int
 spd_set_voice_pitch_uid (connection, pitch, uid)
 		SPDConnection *connection
 		voice_rate_t pitch
@@ -447,7 +447,7 @@ spd_set_voice_pitch_uid (connection, pitch, uid)
 			croak ("failed to set voice pitch");
 		}
 
-int
+NO_OUTPUT int
 spd_set_volume (connection, volume)
 		SPDConnection *connection
 		voice_rate_t volume
@@ -456,7 +456,7 @@ spd_set_volume (connection, volume)
 			croak ("failed to set volume");
 		}
 
-int
+NO_OUTPUT int
 spd_set_volume_all (connection, volume)
 		SPDConnection *connection
 		voice_rate_t volume
@@ -465,7 +465,7 @@ spd_set_volume_all (connection, volume)
 			croak ("failed to set volume");
 		}
 
-int
+NO_OUTPUT int
 spd_set_volume_uid (connection, volume, uid)
 		SPDConnection *connection
 		voice_rate_t volume
@@ -475,7 +475,7 @@ spd_set_volume_uid (connection, volume, uid)
 			croak ("failed to set volume");
 		}
 
-int
+NO_OUTPUT int
 spd_set_capital_letters (connection, type)
 		SPDConnection *connection
 		SPDCapitalLetters type
@@ -484,7 +484,7 @@ spd_set_capital_letters (connection, type)
 			croak ("failed to set capital letters");
 		}
 
-int
+NO_OUTPUT int
 spd_set_capital_letters_all (connection, type)
 		SPDConnection *connection
 		SPDCapitalLetters type
@@ -493,7 +493,7 @@ spd_set_capital_letters_all (connection, type)
 			croak ("failed to set capital letters");
 		}
 
-int
+NO_OUTPUT int
 spd_set_capital_letters_uid (connection, type, uid)
 		SPDConnection *connection
 		SPDCapitalLetters type
