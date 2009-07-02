@@ -256,3 +256,12 @@ spd_set_spelling (connection, type)
 		if (RETVAL < 0) {
 			croak ("failed to set spelling");
 		}
+
+int
+spd_set_voice_type (connection, voice)
+		SPDConnection *connection
+		SPDVoiceType voice
+	POSTCALL:
+		if (RETVAL < 0) {
+			croak ("failed to set voice type");
+		}

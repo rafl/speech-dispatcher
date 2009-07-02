@@ -6,6 +6,7 @@ SPDPriority  T_PRIORITY
 SPDDataMode  T_MODE
 SPDPunctuation  T_PUNCTUATION
 SPDSpelling  T_SPELLING
+SPDVoiceType  T_VOICE_TYPE
 
 OUTPUT
 
@@ -96,5 +97,37 @@ T_SPELLING
 		}
 		else {
 			croak (\"invalid spelling %s\", __tMp);
+		}
+	}
+
+T_VOICE_TYPE
+	{
+		const char *__tMp = SvPV_nolen ($arg);
+		if (strEQ (__tMp, \"male1\")) {
+			$var = SPD_MALE1;
+		}
+		else if (strEQ (__tMp, \"male2\")) {
+			$var = SPD_MALE2;
+		}
+		else if (strEQ (__tMp, \"male3\")) {
+			$var = SPD_MALE3;
+		}
+		else if (strEQ (__tMp, \"female1\")) {
+			$var = SPD_FEMALE1;
+		}
+		else if (strEQ (__tMp, \"female2\")) {
+			$var = SPD_FEMALE2;
+		}
+		else if (strEQ (__tMp, \"female3\")) {
+			$var = SPD_FEMALE3;
+		}
+		else if (strEQ (__tMp, \"child-male\")) {
+			$var = SPD_CHILD_MALE;
+		}
+		else if (strEQ (__tMp, \"child-female\")) {
+			$var = SPD_CHILD_FEMALE;
+		}
+		else {
+			croak (\"invalid voice type %s\", __tMp);
 		}
 	}
