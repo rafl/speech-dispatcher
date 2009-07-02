@@ -229,3 +229,12 @@ spd_set_language (connection, language)
 		if (RETVAL < 0) {
 			croak ("failed to set language");
 		}
+
+int
+spd_set_output_module (connection, output_module)
+		SPDConnection *connection
+		const char *output_module
+	POSTCALL:
+		if (RETVAL < 0) {
+			croak ("failed to set output module");
+		}
