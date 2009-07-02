@@ -474,3 +474,31 @@ spd_set_volume_uid (connection, volume, uid)
 		if (RETVAL < 0) {
 			croak ("failed to set volume");
 		}
+
+int
+spd_set_capital_letters (connection, type)
+		SPDConnection *connection
+		SPDCapitalLetters type
+	POSTCALL:
+		if (RETVAL < 0) {
+			croak ("failed to set capital letters");
+		}
+
+int
+spd_set_capital_letters_all (connection, type)
+		SPDConnection *connection
+		SPDCapitalLetters type
+	POSTCALL:
+		if (RETVAL < 0) {
+			croak ("failed to set capital letters");
+		}
+
+int
+spd_set_capital_letters_uid (connection, type, uid)
+		SPDConnection *connection
+		SPDCapitalLetters type
+		unsigned int uid
+	POSTCALL:
+		if (RETVAL < 0) {
+			croak ("failed to set capital letters");
+		}

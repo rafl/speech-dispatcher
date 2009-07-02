@@ -8,6 +8,7 @@ SPDPunctuation  T_PUNCTUATION
 SPDSpelling  T_SPELLING
 SPDVoiceType  T_VOICE_TYPE
 voice_rate_t  T_VOICE_RATE
+SPDCapitalLetters  T_CAPITAL_LETTERS
 
 OUTPUT
 
@@ -137,4 +138,21 @@ T_VOICE_RATE
 	$var = ($type)SvIV ($arg);
 	if ($var < -100 || $var > 100) {
 		croak (\"invalid voice rate %d - needs to be between -100 and 100\", $var);
+	}
+
+T_CAPITAL_LETTERS
+	{
+		const char *__tMp = SvPV_nolen ($arg);
+		if (strEQ (__tMp, \"none\")) {
+			$var = SPD_CAP_NONE;
+		}
+		else if (strEQ (__tMp, \"spell\")) {
+			$var = SPD_CAP_SPELL;
+		}
+		else if (strEQ (__tMp, \"icon\")) {
+			$var = SPD_CAP_ICON;
+		}
+		else {
+			croak (\"invalid capital letters %s\", __tMp);
+		}
 	}
