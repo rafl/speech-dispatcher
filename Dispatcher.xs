@@ -532,3 +532,26 @@ spd_list_voices (connection)
 		for (i = voices; *i; i++) {
 			mXPUSHs (newSVpv (*i, 0));
 		}
+
+void
+spd_list_synthesis_voices (connection)
+		SPDConnection *connection
+	PREINIT:
+		SPDVoice **voices, **i;
+	PPCODE:
+		voices = spd_list_synthesis_voices (connection);
+		if (!voices) {
+			croak ("failed to get synthesis voice list");
+		}
+
+		for (i = voices; *i; i++) {
+			HV *voice = newHV ();
+
+			if (!hv_store (voice, "name",     sizeof ("name"),     newSVpv ((*i)->name,     0), 0)
+			 || !hv_store (voice, "language", sizeof ("language"), newSVpv ((*i)->language, 0), 0)
+			 || !hv_store (voice, "variant",  sizeof ("variant"),  newSVpv ((*i)->variant,  0), 0)) {
+				croak ("failed to store in hash");
+			}
+
+			mXPUSHs (newRV_noinc ((SV *)voice));
+		}
