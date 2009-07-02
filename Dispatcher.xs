@@ -285,3 +285,12 @@ spd_set_voice_rate (connection, rate)
 		if (RETVAL < 0) {
 			croak ("failed to set voice rate");
 		}
+
+int
+spd_set_voice_pitch (connection, pitch)
+		SPDConnection *connection
+		voice_rate_t pitch
+	POSTCALL:
+		if (RETVAL < 0) {
+			croak ("failed to set voice pitch");
+		}
