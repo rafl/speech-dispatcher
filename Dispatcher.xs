@@ -187,3 +187,15 @@ spd_char (connection, character, priority=SPD_TEXT)
         if (RETVAL < 0) {
             croak ("failed to say character");
         }
+
+int
+spd_key (connection, key_name, priority=SPD_TEXT)
+        SPDConnection *connection
+        const char *key_name
+        SPDPriority priority
+    C_ARGS:
+        connection, priority, key_name
+    POSTCALL:
+        if (RETVAL < 0) {
+            croak ("failed to say key");
+        }
