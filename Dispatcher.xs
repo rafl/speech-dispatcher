@@ -233,9 +233,47 @@ spd_set_language (connection, language)
 		}
 
 int
+spd_set_language_all (connection, language)
+		SPDConnection *connection
+		const char *language
+	POSTCALL:
+		if (RETVAL < 0) {
+			croak ("failed to set language");
+		}
+
+int
+spd_set_language_uid (connection, language, uid)
+		SPDConnection *connection
+		const char *language
+		unsigned int uid
+	POSTCALL:
+		if (RETVAL < 0) {
+			croak ("failed to set language");
+		}
+
+int
 spd_set_output_module (connection, output_module)
 		SPDConnection *connection
 		const char *output_module
+	POSTCALL:
+		if (RETVAL < 0) {
+			croak ("failed to set output module");
+		}
+
+int
+spd_set_output_module_all (connection, output_module)
+		SPDConnection *connection
+		const char *output_module
+	POSTCALL:
+		if (RETVAL < 0) {
+			croak ("failed to set output module");
+		}
+
+int
+spd_set_output_module_uid (connection, output_module, uid)
+		SPDConnection *connection
+		const char *output_module
+		unsigned int uid
 	POSTCALL:
 		if (RETVAL < 0) {
 			croak ("failed to set output module");
@@ -251,9 +289,47 @@ spd_set_punctuation (connection, type)
 		}
 
 int
+spd_set_punctuation_all (connection, type)
+		SPDConnection *connection
+		SPDPunctuation type
+	POSTCALL:
+		if (RETVAL < 0) {
+			croak ("failed to set puctuation");
+		}
+
+int
+spd_set_punctuation_uid (connection, type, uid)
+		SPDConnection *connection
+		SPDPunctuation type
+		unsigned int uid
+	POSTCALL:
+		if (RETVAL < 0) {
+			croak ("failed to set puctuation");
+		}
+
+int
 spd_set_spelling (connection, type)
 		SPDConnection *connection
 		SPDSpelling type
+	POSTCALL:
+		if (RETVAL < 0) {
+			croak ("failed to set spelling");
+		}
+
+int
+spd_set_spelling_all (connection, type)
+		SPDConnection *connection
+		SPDSpelling type
+	POSTCALL:
+		if (RETVAL < 0) {
+			croak ("failed to set spelling");
+		}
+
+int
+spd_set_spelling_uid (connection, type, uid)
+		SPDConnection *connection
+		SPDSpelling type
+		unsigned int uid
 	POSTCALL:
 		if (RETVAL < 0) {
 			croak ("failed to set spelling");
@@ -269,9 +345,47 @@ spd_set_voice_type (connection, voice)
 		}
 
 int
+spd_set_voice_type_all (connection, voice)
+		SPDConnection *connection
+		SPDVoiceType voice
+	POSTCALL:
+		if (RETVAL < 0) {
+			croak ("failed to set voice type");
+		}
+
+int
+spd_set_voice_type_uid (connection, voice, uid)
+		SPDConnection *connection
+		SPDVoiceType voice
+		unsigned int uid
+	POSTCALL:
+		if (RETVAL < 0) {
+			croak ("failed to set voice type");
+		}
+
+int
 spd_set_synthesis_voice (connection, voice_name)
 		SPDConnection *connection
 		const char *voice_name
+	POSTCALL:
+		if (RETVAL < 0) {
+			croak ("failed to set voice");
+		}
+
+int
+spd_set_synthesis_voice_all (connection, voice_name)
+		SPDConnection *connection
+		const char *voice_name
+	POSTCALL:
+		if (RETVAL < 0) {
+			croak ("failed to set voice");
+		}
+
+int
+spd_set_synthesis_voice_uid (connection, voice_name, uid)
+		SPDConnection *connection
+		const char *voice_name
+		unsigned int uid
 	POSTCALL:
 		if (RETVAL < 0) {
 			croak ("failed to set voice");
@@ -287,6 +401,25 @@ spd_set_voice_rate (connection, rate)
 		}
 
 int
+spd_set_voice_rate_all (connection, rate)
+		SPDConnection *connection
+		voice_rate_t rate
+	POSTCALL:
+		if (RETVAL < 0) {
+			croak ("failed to set voice rate");
+		}
+
+int
+spd_set_voice_rate_uid (connection, rate, uid)
+		SPDConnection *connection
+		voice_rate_t rate
+		unsigned int uid
+	POSTCALL:
+		if (RETVAL < 0) {
+			croak ("failed to set voice rate");
+		}
+
+int
 spd_set_voice_pitch (connection, pitch)
 		SPDConnection *connection
 		voice_rate_t pitch
@@ -296,9 +429,47 @@ spd_set_voice_pitch (connection, pitch)
 		}
 
 int
+spd_set_voice_pitch_all (connection, pitch)
+		SPDConnection *connection
+		voice_rate_t pitch
+	POSTCALL:
+		if (RETVAL < 0) {
+			croak ("failed to set voice pitch");
+		}
+
+int
+spd_set_voice_pitch_uid (connection, pitch, uid)
+		SPDConnection *connection
+		voice_rate_t pitch
+		unsigned int uid
+	POSTCALL:
+		if (RETVAL < 0) {
+			croak ("failed to set voice pitch");
+		}
+
+int
 spd_set_volume (connection, volume)
 		SPDConnection *connection
 		voice_rate_t volume
+	POSTCALL:
+		if (RETVAL < 0) {
+			croak ("failed to set volume");
+		}
+
+int
+spd_set_volume_all (connection, volume)
+		SPDConnection *connection
+		voice_rate_t volume
+	POSTCALL:
+		if (RETVAL < 0) {
+			croak ("failed to set volume");
+		}
+
+int
+spd_set_volume_uid (connection, volume, uid)
+		SPDConnection *connection
+		voice_rate_t volume
+		unsigned int uid
 	POSTCALL:
 		if (RETVAL < 0) {
 			croak ("failed to set volume");
