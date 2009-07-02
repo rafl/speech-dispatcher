@@ -1,0 +1,28 @@
+TYPEMAP
+
+SPDConnection *  T_CONNECTION
+SPDConnectionMode  T_CONNECTION_MODE
+
+OUTPUT
+
+T_CONNECTION
+	$arg = new_sv_from_ptr ($var, \"Speech::Dispatcher\");
+
+INPUT
+
+T_CONNECTION
+    $var = ($type)ptr_from_sv ($arg, \"Speech::Dispatcher\");
+
+T_CONNECTION_MODE
+    {
+        const char *__tMp = SvPV_nolen ($arg);
+        if (strEQ (__tMp, \"single\")) {
+            $var = SPD_MODE_SINGLE;
+        }
+        else if (strEQ (__tMp, \"threaded\")) {
+            $var = SPD_MODE_THREADED;
+        }
+        else {
+            croak (\"invalid connection mode %s\", __tMp);
+        }
+    }
