@@ -4,6 +4,7 @@ SPDConnection *  T_CONNECTION
 SPDConnectionMode  T_CONNECTION_MODE
 SPDPriority  T_PRIORITY
 SPDDataMode  T_MODE
+SPDPunctuation  T_PUNCTUATION
 
 OUTPUT
 
@@ -63,5 +64,22 @@ T_MODE
 		}
 		else {
 			croak (\"invalid data mode %s\", __tMp);
+		}
+	}
+
+T_PUNCTUATION
+	{
+		const char *__tMp = SvPV_nolen ($arg);
+		if (strEQ (__tMp, \"all\")) {
+			$var = SPD_PUNCT_ALL;
+		}
+		else if (strEQ (__tMp, \"none\")) {
+			$var = SPD_PUNCT_NONE;
+		}
+		else if (strEQ (__tMp, \"some\")) {
+			$var = SPD_PUNCT_SOME;
+		}
+		else {
+			croak (\"invalid punctuation %s\", __tMp);
 		}
 	}

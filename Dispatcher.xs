@@ -238,3 +238,12 @@ spd_set_output_module (connection, output_module)
 		if (RETVAL < 0) {
 			croak ("failed to set output module");
 		}
+
+int
+spd_set_punctuation (connection, type)
+		SPDConnection *connection
+		SPDPunctuation type
+	POSTCALL:
+		if (RETVAL < 0) {
+			croak ("failed to set puctuation");
+		}
