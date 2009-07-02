@@ -175,3 +175,15 @@ spd_resume_uid (connection, target_uid)
         if (RETVAL < 0) {
             croak ("failed to resume messages");
         }
+
+int
+spd_char (connection, character, priority=SPD_TEXT)
+        SPDConnection *connection
+        const char *character
+        SPDPriority priority
+    C_ARGS:
+        connection, priority, character
+    POSTCALL:
+        if (RETVAL < 0) {
+            croak ("failed to say character");
+        }
