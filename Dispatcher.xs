@@ -125,3 +125,28 @@ spd_cancel_uid (connection, target_uid)
         if (RETVAL < 0) {
             croak ("failed to cancel messages");
         }
+
+int
+spd_pause (connection)
+        SPDConnection *connection
+    POSTCALL:
+        if (RETVAL < 0) {
+            croak ("failed to pause messages");
+        }
+
+int
+spd_pause_all (connection)
+        SPDConnection *connection
+    POSTCALL:
+        if (RETVAL < 0) {
+            croak ("failed to pause messages");
+        }
+
+int
+spd_pause_uid (connection, target_uid)
+        SPDConnection *connection
+        int target_uid
+    POSTCALL:
+        if (RETVAL < 0) {
+            croak ("failed to pause messages");
+        }
