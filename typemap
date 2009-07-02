@@ -3,6 +3,7 @@ TYPEMAP
 SPDConnection *  T_CONNECTION
 SPDConnectionMode  T_CONNECTION_MODE
 SPDPriority  T_PRIORITY
+SPDDataMode  T_MODE
 
 OUTPUT
 
@@ -50,3 +51,17 @@ T_PRIORITY
             croak (\"invalid priority %s\", __tMp);
         }
     }
+
+T_MODE
+	{
+		const char *__tMp = SvPV_nolen ($arg);
+		if (strEQ (__tMp, \"text\")) {
+			$var = SPD_DATA_TEXT;
+		}
+		else if (strEQ (__tMp, \"ssml\")) {
+			$var = SPD_DATA_SSML;
+		}
+		else {
+			croak (\"invalid data mode %s\", __tMp);
+		}
+	}

@@ -211,3 +211,12 @@ spd_sound_icon (connection, icon_name, priority=SPD_TEXT)
         if (RETVAL < 0) {
             croak ("failed to say sound icon");
         }
+
+int
+spd_set_data_mode (connection, mode)
+		SPDConnection *connection
+		SPDDataMode mode
+	POSTCALL:
+		if (RETVAL < 0) {
+			croak ("failed to set data mode");
+		}
