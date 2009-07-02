@@ -199,3 +199,15 @@ spd_key (connection, key_name, priority=SPD_TEXT)
         if (RETVAL < 0) {
             croak ("failed to say key");
         }
+
+int
+spd_sound_icon (connection, icon_name, priority=SPD_TEXT)
+        SPDConnection *connection
+        const char *icon_name
+        SPDPriority priority
+    C_ARGS:
+        connection, priority, icon_name
+    POSTCALL:
+        if (RETVAL < 0) {
+            croak ("failed to say sound icon");
+        }
