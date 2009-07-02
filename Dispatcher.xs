@@ -81,7 +81,7 @@ spd_stop (connection)
         SPDConnection *connection
     POSTCALL:
         if (RETVAL < 0) {
-            croak ("failed to stop message");
+            croak ("failed to stop messages");
         }
 
 int
@@ -98,5 +98,30 @@ spd_stop_uid (connection, target_uid)
         int target_uid
     POSTCALL:
         if (RETVAL < 0) {
-            croak ("failed to stop message");
+            croak ("failed to stop messages");
+        }
+
+int
+spd_cancel (connection)
+        SPDConnection *connection
+    POSTCALL:
+        if (RETVAL < 0) {
+            croak ("failed to cancel messages");
+        }
+
+int
+spd_cancel_all (connection)
+        SPDConnection *connection
+    POSTCALL:
+        if (RETVAL < 0) {
+            croak ("failed to cancel messages");
+        }
+
+int
+spd_cancel_uid (connection, target_uid)
+        SPDConnection *connection
+        int target_uid
+    POSTCALL:
+        if (RETVAL < 0) {
+            croak ("failed to cancel messages");
         }
