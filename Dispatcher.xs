@@ -247,3 +247,12 @@ spd_set_punctuation (connection, type)
 		if (RETVAL < 0) {
 			croak ("failed to set puctuation");
 		}
+
+int
+spd_set_spelling (connection, type)
+		SPDConnection *connection
+		SPDSpelling type
+	POSTCALL:
+		if (RETVAL < 0) {
+			croak ("failed to set spelling");
+		}

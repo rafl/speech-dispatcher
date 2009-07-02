@@ -5,6 +5,7 @@ SPDConnectionMode  T_CONNECTION_MODE
 SPDPriority  T_PRIORITY
 SPDDataMode  T_MODE
 SPDPunctuation  T_PUNCTUATION
+SPDSpelling  T_SPELLING
 
 OUTPUT
 
@@ -81,5 +82,19 @@ T_PUNCTUATION
 		}
 		else {
 			croak (\"invalid punctuation %s\", __tMp);
+		}
+	}
+
+T_SPELLING
+	{
+		const char *__tMp = SvPV_nolen ($arg);
+		if (strEQ (__tMp, \"off\")) {
+			$var = SPD_SPELL_OFF;
+		}
+		else if (strEQ (__tMp, \"on\")) {
+			$var = SPD_SPELL_ON;
+		}
+		else {
+			croak (\"invalid spelling %s\", __tMp);
 		}
 	}
