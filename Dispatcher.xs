@@ -53,6 +53,10 @@ spd_open (class, client_name, connection_name, user_name, mode=SPD_MODE_SINGLE)
         SPDConnectionMode mode
     C_ARGS:
         client_name, connection_name, user_name, mode
+    POSTCALL:
+        if (!RETVAL) {
+            croak ("failed to create connection");
+        }
 
 void
 DESTROY (connection)
