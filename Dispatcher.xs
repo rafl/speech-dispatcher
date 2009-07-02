@@ -220,3 +220,12 @@ spd_set_data_mode (connection, mode)
 		if (RETVAL < 0) {
 			croak ("failed to set data mode");
 		}
+
+int
+spd_set_language (connection, language)
+		SPDConnection *connection
+		const char *language
+	POSTCALL:
+		if (RETVAL < 0) {
+			croak ("failed to set language");
+		}
