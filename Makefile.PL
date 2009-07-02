@@ -7,4 +7,6 @@ all_from 'lib/Speech/Dispatcher.pm';
 
 ppport;
 
+cc_lib_links('speechd');
+
 WriteAll;
