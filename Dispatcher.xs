@@ -48,17 +48,19 @@ MODULE = Speech::Dispatcher  PACKAGE = Speech::Dispatcher  PREFIX = spd_
 PROTOTYPES: DISABLED
 
 SPDConnection *
-spd_open (class, client_name, connection_name, user_name, mode=SPD_MODE_SINGLE)
-        const char *client_name
-        const char *connection_name
-        const char *user_name
-        SPDConnectionMode mode
-    C_ARGS:
-        client_name, connection_name, user_name, mode
-    POSTCALL:
-        if (!RETVAL) {
-            croak ("failed to create connection");
-        }
+_open (class, client_name, connection_name, user_name, mode)
+		const char *client_name
+		const char *connection_name
+		const char *user_name
+		SPDConnectionMode mode
+	CODE:
+		RETVAL = spd_open (client_name, connection_name, user_name, mode);
+	POSTCALL:
+		if (!RETVAL) {
+			croak ("failed to create connection");
+		}
+	OUTPUT:
+		RETVAL
 
 void
 DESTROY (connection)
