@@ -9,36 +9,36 @@
 STATIC SV *
 new_sv_from_ptr (void *ptr, const char *class)
 {
-    SV *obj, *sv;
-    HV *stash;
+	SV *obj, *sv;
+	HV *stash;
 
-    obj = (SV *)newHV ();
-    sv_magic (obj, 0, PERL_MAGIC_ext, (const char *)ptr, 0);
-    sv = newRV_noinc (obj);
-    stash = gv_stashpv (class, 0);
-    sv_bless (sv, stash);
+	obj = (SV *)newHV ();
+	sv_magic (obj, 0, PERL_MAGIC_ext, (const char *)ptr, 0);
+	sv = newRV_noinc (obj);
+	stash = gv_stashpv (class, 0);
+	sv_bless (sv, stash);
 
-    return sv;
+	return sv;
 }
 
 STATIC void *
 ptr_from_sv (SV *sv, const char *class)
 {
-    MAGIC *mg;
+	MAGIC *mg;
 
-    if (!sv || !SvOK (sv) || !SvROK (sv)) {
-        croak ("scalar is not a reference");
-    }
+	if (!sv || !SvOK (sv) || !SvROK (sv)) {
+		croak ("scalar is not a reference");
+	}
 
-    if (!sv_derived_from (sv, class)) {
-        croak ("object is not a %s", class);
-    }
+	if (!sv_derived_from (sv, class)) {
+		croak ("object is not a %s", class);
+	}
 
-    if (!(mg = mg_find (SvRV (sv), PERL_MAGIC_ext))) {
-        croak ("object doesn't have any magic attached to it");
-    }
+	if (!(mg = mg_find (SvRV (sv), PERL_MAGIC_ext))) {
+		croak ("object doesn't have any magic attached to it");
+	}
 
-    return (void *)mg->mg_ptr;
+	return (void *)mg->mg_ptr;
 }
 
 typedef int voice_rate_t;
@@ -62,157 +62,157 @@ spd_open (class, client_name, connection_name, user_name, mode=SPD_MODE_SINGLE)
 
 void
 DESTROY (connection)
-        SPDConnection *connection
-    CODE:
-        spd_close (connection);
+		SPDConnection *connection
+	CODE:
+		spd_close (connection);
 
 int
 spd_say (connection, text, priority=SPD_TEXT)
-        SPDConnection *connection
-        const char *text
-        SPDPriority priority
-    C_ARGS:
-        connection, priority, text
-    POSTCALL:
-        if (RETVAL < 0) {
-            croak ("failed to say text");
-        }
+		SPDConnection *connection
+		const char *text
+		SPDPriority priority
+	C_ARGS:
+		connection, priority, text
+	POSTCALL:
+		if (RETVAL < 0) {
+			croak ("failed to say text");
+		}
 
 NO_OUTPUT int
 spd_stop (connection)
-        SPDConnection *connection
-    POSTCALL:
-        if (RETVAL < 0) {
-            croak ("failed to stop messages");
-        }
+		SPDConnection *connection
+	POSTCALL:
+		if (RETVAL < 0) {
+			croak ("failed to stop messages");
+		}
 
 NO_OUTPUT int
 spd_stop_all (connection)
-        SPDConnection *connection
-    POSTCALL:
-        if (RETVAL < 0) {
-            croak ("failed to stop messages");
-        }
+		SPDConnection *connection
+	POSTCALL:
+		if (RETVAL < 0) {
+			croak ("failed to stop messages");
+		}
 
 NO_OUTPUT int
 spd_stop_uid (connection, target_uid)
-        SPDConnection *connection
-        int target_uid
-    POSTCALL:
-        if (RETVAL < 0) {
-            croak ("failed to stop messages");
-        }
+		SPDConnection *connection
+		int target_uid
+	POSTCALL:
+		if (RETVAL < 0) {
+			croak ("failed to stop messages");
+		}
 
 NO_OUTPUT int
 spd_cancel (connection)
-        SPDConnection *connection
-    POSTCALL:
-        if (RETVAL < 0) {
-            croak ("failed to cancel messages");
-        }
+		SPDConnection *connection
+	POSTCALL:
+		if (RETVAL < 0) {
+			croak ("failed to cancel messages");
+		}
 
 NO_OUTPUT int
 spd_cancel_all (connection)
-        SPDConnection *connection
-    POSTCALL:
-        if (RETVAL < 0) {
-            croak ("failed to cancel messages");
-        }
+		SPDConnection *connection
+	POSTCALL:
+		if (RETVAL < 0) {
+			croak ("failed to cancel messages");
+		}
 
 NO_OUTPUT int
 spd_cancel_uid (connection, target_uid)
-        SPDConnection *connection
-        int target_uid
-    POSTCALL:
-        if (RETVAL < 0) {
-            croak ("failed to cancel messages");
-        }
+		SPDConnection *connection
+		int target_uid
+	POSTCALL:
+		if (RETVAL < 0) {
+			croak ("failed to cancel messages");
+		}
 
 NO_OUTPUT int
 spd_pause (connection)
-        SPDConnection *connection
-    POSTCALL:
-        if (RETVAL < 0) {
-            croak ("failed to pause messages");
-        }
+		SPDConnection *connection
+	POSTCALL:
+		if (RETVAL < 0) {
+			croak ("failed to pause messages");
+		}
 
 NO_OUTPUT int
 spd_pause_all (connection)
-        SPDConnection *connection
-    POSTCALL:
-        if (RETVAL < 0) {
-            croak ("failed to pause messages");
-        }
+		SPDConnection *connection
+	POSTCALL:
+		if (RETVAL < 0) {
+			croak ("failed to pause messages");
+		}
 
 NO_OUTPUT int
 spd_pause_uid (connection, target_uid)
-        SPDConnection *connection
-        int target_uid
-    POSTCALL:
-        if (RETVAL < 0) {
-            croak ("failed to pause messages");
-        }
+		SPDConnection *connection
+		int target_uid
+	POSTCALL:
+		if (RETVAL < 0) {
+			croak ("failed to pause messages");
+		}
 
 NO_OUTPUT int
 spd_resume (connection)
-        SPDConnection *connection
-    POSTCALL:
-        if (RETVAL < 0) {
-            croak ("failed to resume messages");
-        }
+		SPDConnection *connection
+	POSTCALL:
+		if (RETVAL < 0) {
+			croak ("failed to resume messages");
+		}
 
 NO_OUTPUT int
 spd_resume_all (connection)
-        SPDConnection *connection
-    POSTCALL:
-        if (RETVAL < 0) {
-            croak ("failed to resume messages");
-        }
+		SPDConnection *connection
+	POSTCALL:
+		if (RETVAL < 0) {
+			croak ("failed to resume messages");
+		}
 
 NO_OUTPUT int
 spd_resume_uid (connection, target_uid)
-        SPDConnection *connection
-        int target_uid
-    POSTCALL:
-        if (RETVAL < 0) {
-            croak ("failed to resume messages");
-        }
+		SPDConnection *connection
+		int target_uid
+	POSTCALL:
+		if (RETVAL < 0) {
+			croak ("failed to resume messages");
+		}
 
 int
 spd_char (connection, character, priority=SPD_TEXT)
-        SPDConnection *connection
-        const char *character
-        SPDPriority priority
-    C_ARGS:
-        connection, priority, character
-    POSTCALL:
-        if (RETVAL < 0) {
-            croak ("failed to say character");
-        }
+		SPDConnection *connection
+		const char *character
+		SPDPriority priority
+	C_ARGS:
+		connection, priority, character
+	POSTCALL:
+		if (RETVAL < 0) {
+			croak ("failed to say character");
+		}
 
 int
 spd_key (connection, key_name, priority=SPD_TEXT)
-        SPDConnection *connection
-        const char *key_name
-        SPDPriority priority
-    C_ARGS:
-        connection, priority, key_name
-    POSTCALL:
-        if (RETVAL < 0) {
-            croak ("failed to say key");
-        }
+		SPDConnection *connection
+		const char *key_name
+		SPDPriority priority
+	C_ARGS:
+		connection, priority, key_name
+	POSTCALL:
+		if (RETVAL < 0) {
+			croak ("failed to say key");
+		}
 
 int
 spd_sound_icon (connection, icon_name, priority=SPD_TEXT)
-        SPDConnection *connection
-        const char *icon_name
-        SPDPriority priority
-    C_ARGS:
-        connection, priority, icon_name
-    POSTCALL:
-        if (RETVAL < 0) {
-            croak ("failed to say sound icon");
-        }
+		SPDConnection *connection
+		const char *icon_name
+		SPDPriority priority
+	C_ARGS:
+		connection, priority, icon_name
+	POSTCALL:
+		if (RETVAL < 0) {
+			croak ("failed to say sound icon");
+		}
 
 NO_OUTPUT int
 spd_set_data_mode (connection, mode)
