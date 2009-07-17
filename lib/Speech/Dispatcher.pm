@@ -3,13 +3,7 @@ use warnings;
 
 package Speech::Dispatcher;
 
-use XSLoader;
-use File::Basename;
-use namespace::clean;
-
 our $VERSION = '0.01';
-
-XSLoader::load(__PACKAGE__, $VERSION);
 
 sub new {
     my ($class, $args) = @_;
