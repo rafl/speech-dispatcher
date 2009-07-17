@@ -41,6 +41,12 @@ ptr_from_sv (SV *sv, const char *class)
 	return (void *)mg->mg_ptr;
 }
 
+void
+marshall_cb (size_t msg_id, size_t client_id, SPDNotificationType type)
+{
+	printf ("client: %d\nmsg: %d\n", client_id, msg_id);
+}
+
 typedef int voice_rate_t;
 
 MODULE = Speech::Dispatcher  PACKAGE = Speech::Dispatcher  PREFIX = spd_
@@ -565,3 +571,52 @@ spd_list_synthesis_voices (connection)
 		}
 
 		free (voices);
+
+NO_OUTPUT int
+spd_set_notification_on (connection, notification)
+		SPDConnection *connection
+		SPDNotification notification
+	POSTCALL:
+		if (RETVAL < 0) {
+			croak ("failed to enable notification");
+		}
+
+NO_OUTPUT int
+spd_set_notification_off (connection, notification)
+		SPDConnection *connection
+		SPDNotification notification
+	POSTCALL:
+		if (RETVAL < 0) {
+			croak ("failed to enable notification");
+		}
+
+void
+_set_callback_begin (connection, cb)
+		SPDConnection *connection
+		SV *cb
+	ALIAS:
+		_set_callback_end    = 1
+		_set_callback_cancel = 2
+		_set_callback_pause  = 3
+		_set_callback_resume = 4
+	CODE:
+		switch (ix) {
+			case 0:
+				connection->callback_begin = marshall_cb;
+				break;
+			case 1:
+				connection->callback_end = marshall_cb;
+				break;
+			case 2:
+				connection->callback_cancel = marshall_cb;
+				break;
+			case 3:
+				connection->callback_pause = marshall_cb;
+				break;
+			case 4:
+				connection->callback_resume = marshall_cb;
+				break;
+			default:
+				croak ("oh noez");
+				break;
+		}

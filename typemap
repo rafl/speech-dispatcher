@@ -9,6 +9,7 @@ SPDSpelling  T_SPELLING
 SPDVoiceType  T_VOICE_TYPE
 voice_rate_t  T_VOICE_RATE
 SPDCapitalLetters  T_CAPITAL_LETTERS
+SPDNotification    T_NOTIFICATION
 
 OUTPUT
 
@@ -154,5 +155,31 @@ T_CAPITAL_LETTERS
 		}
 		else {
 			croak (\"invalid capital letters %s\", __tMp);
+		}
+	}
+
+T_NOTIFICATION
+	{
+		const char *__tMp = SvPV_nolen ($arg);
+		if (strEQ (__tMp, \"begin\")) {
+			$var = SPD_BEGIN;
+		}
+		else if (strEQ (__tMp, \"end\")) {
+			$var = SPD_END;
+		}
+		else if (strEQ (__tMp, \"index-marks\")) {
+			$var = SPD_INDEX_MARKS;
+		}
+		else if (strEQ (__tMp, \"cancel\")) {
+			$var = SPD_CANCEL;
+		}
+		else if (strEQ (__tMp, \"pause\")) {
+			$var = SPD_PAUSE;
+		}
+		else if (strEQ (__tMp, \"resume\")) {
+			$var = SPD_RESUME;
+		}
+		else {
+			croak (\"invalid notification %s\", __tMp);
 		}
 	}
