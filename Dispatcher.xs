@@ -520,6 +520,8 @@ spd_list_modules (connection)
 			mXPUSHs (newSVpv (*i, 0));
 		}
 
+		free (modules);
+
 void
 spd_list_voices (connection)
 		SPDConnection *connection
@@ -534,6 +536,8 @@ spd_list_voices (connection)
 		for (i = voices; *i; i++) {
 			mXPUSHs (newSVpv (*i, 0));
 		}
+
+		free (voices);
 
 void
 spd_list_synthesis_voices (connection)
@@ -556,4 +560,8 @@ spd_list_synthesis_voices (connection)
 			}
 
 			mXPUSHs (newRV_noinc ((SV *)voice));
+
+			free (*i);
 		}
+
+		free (voices);
