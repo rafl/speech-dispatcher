@@ -60,6 +60,12 @@ class Speech::Dispatcher {
         default  => 10,
     );
 
+    has on_connect => (
+        is        => 'ro',
+        isa       => CodeRef,
+        predicate => 'has_on_connect',
+    );
+
     has handle => (
         is        => 'ro',
         writer    => '_set_handle',
@@ -87,8 +93,8 @@ class Speech::Dispatcher {
 
             $self->_set_handle($handle);
             $self->_perform_handshake(sub {
-                $args->{on_connect}->($self)
-                    if CodeRef->check($args->{on_connect});
+                $self->on_connect->($self)
+                    if $self->has_on_connect;
             });
         }, sub { $self->connect_timeout };
     }
