@@ -35,7 +35,6 @@ $cv->wait;
 $cv = AnyEvent->condvar;
 $d->list_synthesis_voices(sub {
     my ($d, @voices) = @_;
-    diag explain \@voices;
     $cv->send;
 });
 $cv->wait;

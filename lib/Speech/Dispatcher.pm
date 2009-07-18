@@ -188,27 +188,24 @@ class Speech::Dispatcher {
     }
 
     method list_output_modules (CodeRef $cb) {
-        my @modules;
         $self->send_command(
             cmd => 'LIST OUTPUT_MODULES',
-            cb  => sub { shift->_receive_list(@_, \@modules, $cb) },
+            cb  => sub { shift->_receive_list(@_, [], $cb) },
         );
     }
 
     method list_voices (CodeRef $cb) {
-        my @voices;
         $self->send_command(
             cmd => 'LIST VOICES',
-            cb  => sub { shift->_receive_list(@_, \@voices, $cb) },
+            cb  => sub { shift->_receive_list(@_, [], $cb) },
         );
     }
 
     method list_synthesis_voices (CodeRef $cb) {
-        my @voices;
         $self->send_command(
             cmd => 'LIST SYNTHESIS_VOICES',
             cb  => sub {
-                shift->_receive_list(@_, \@voices, sub {
+                shift->_receive_list(@_, [], sub {
                     shift->$cb(map {
                         my ($name, $lang, $variant) = split /\s+/, $_;
                         {
@@ -216,7 +213,7 @@ class Speech::Dispatcher {
                             language => $lang,
                             ($variant eq 'none' ? () : (variant => $variant)),
                         }
-                    } @voices);
+                    } @_);
                 });
             },
         );
