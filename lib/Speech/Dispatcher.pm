@@ -60,11 +60,6 @@ class Speech::Dispatcher {
         default  => 10,
     );
 
-    has on_connect => (
-        is  => 'ro',
-        isa => CodeRef,
-    );
-
     has handle => (
         is        => 'ro',
         writer    => '_set_handle',
@@ -92,7 +87,8 @@ class Speech::Dispatcher {
 
             $self->_set_handle($handle);
             $self->_perform_handshake(sub {
-                $self->_trigger('on_connect', $self);
+                $args->{on_connect}->($self)
+                    if CodeRef->check($args->{on_connect});
             });
         }, sub { $self->connect_timeout };
     }
@@ -103,10 +99,6 @@ class Speech::Dispatcher {
 
     method _error ($, Bool $fatal, Str $message) {
         confess qq{error in communication with speech server: $message};
-    }
-
-    method _trigger ($cb, @args) {
-        $self->$cb->(@args);
     }
 
     method send_command (:$cmd, :$args = [], :$cb) {
