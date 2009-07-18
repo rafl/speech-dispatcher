@@ -195,6 +195,14 @@ class Speech::Dispatcher {
         );
     }
 
+    method list_voices (CodeRef $cb) {
+        my @voices;
+        $self->send_command(
+            cmd => 'LIST VOICES',
+            cb  => sub { shift->_receive_list(@_, \@voices, $cb) },
+        );
+    }
+
     method DEMOLISH {
         return if in_global_destruction;
         return unless $self->_has_handle;

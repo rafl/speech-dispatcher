@@ -18,7 +18,16 @@ $cv->wait;
 
 $cv = AnyEvent->condvar;
 $d->list_output_modules(sub {
-    ok(scalar grep { $_ eq 'dummy' } @_);
+    my ($d, @modules) = @_;
+    ok(scalar grep { $_ eq 'dummy' } @modules);
+    $cv->send;
+});
+$cv->wait;
+
+$cv = AnyEvent->condvar;
+$d->list_voices(sub {
+    my ($d, @voices) = @_;
+    ok(scalar grep { /male/i } @voices);
     $cv->send;
 });
 $cv->wait;
