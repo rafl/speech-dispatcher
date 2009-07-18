@@ -177,6 +177,7 @@ class Speech::Dispatcher {
 
     method DEMOLISH {
         return if in_global_destruction;
+        return unless $self->_has_handle;
         $self->send_command(cmd => 'QUIT');
     }
 }
