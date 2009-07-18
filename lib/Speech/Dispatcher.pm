@@ -107,11 +107,13 @@ class Speech::Dispatcher {
         confess qq{error in communication with speech server: $message};
     }
 
+    method _send_data (Str @data) {
+        $self->handle->push_write(join "\r\n" => @data, '');
+    }
+
     method send_command (:$cmd, :$args = [], :$cb) {
         weaken $self;
-        $self->handle->push_write(
-            join(q{ } => $cmd, @{ $args }) . "\r\n",
-        );
+        $self->_send_data(join q{ } => $cmd, @{ $args });
         $self->_receive_reply(sub {
             my ($self, $code, $rest) = @_;
             $self->$cb($code, $rest)
@@ -159,7 +161,7 @@ class Speech::Dispatcher {
         $self->send_command(
             cmd => 'SPEAK',
             cb  => sub {
-                $self->handle->push_write("$text\r\n.\r\n");
+                $self->_send_data($text, '.');
 
                 my $msg_id;
                 $self->_receive_reply(sub {
