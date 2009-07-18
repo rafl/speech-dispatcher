@@ -110,7 +110,7 @@ class Speech::Dispatcher {
     method send_command (:$cmd, :$args = [], :$cb) {
         weaken $self;
         $self->handle->push_write(
-            join q{ } => $cmd, @{ $args }, "\r\n",
+            join(q{ } => $cmd, @{ $args }) . "\r\n",
         );
         $self->_receive_reply(sub {
             my ($self, $code, $rest) = @_;
