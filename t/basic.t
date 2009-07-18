@@ -16,4 +16,11 @@ $cv = AnyEvent->condvar;
 $d->say('foobar', sub { $cv->send });
 $cv->wait;
 
+$cv = AnyEvent->condvar;
+$d->list_output_modules(sub {
+    ok(scalar grep { $_ eq 'dummy' } @_);
+    $cv->send;
+});
+$cv->wait;
+
 done_testing;

@@ -115,22 +115,22 @@ class Speech::Dispatcher {
         weaken $self;
         $self->_send_data(join q{ } => $cmd, @{ $args });
         $self->_receive_reply(sub {
-            my ($self, $code, $rest) = @_;
-            $self->$cb($code, $rest)
+            my $self = shift;
+            $self->$cb(@_)
                 if $cb;
         });
     }
 
     method _parse_reply (Str $reply) {
-        my ($code, $rest) = $reply =~ /^(\d+)[-\s](.*)$/;
-        return ($code, $rest);
+        my ($code, $sep, $rest) = $reply =~ /^(\d+)([-\s])(.*)$/;
+        return ($code, $rest, $sep eq '-' ? 0 : 1);
     }
 
     method _receive_reply (CodeRef $cb) {
         weaken $self;
         $self->handle->push_read(line => sub {
             my (undef, $msg) = @_;
-            my ($code, $rest) = $self->_parse_reply($msg);
+            my ($code, $rest, $final) = $self->_parse_reply($msg);
 
             given ($code) {
                 when (/^3/)    { confess qq{Received server error $code: $rest} }
@@ -141,7 +141,7 @@ class Speech::Dispatcher {
                 }
             }
 
-            $self->$cb($code, $rest);
+            $self->$cb($code, $rest, $final);
         });
     }
 
@@ -174,6 +174,26 @@ class Speech::Dispatcher {
                     $self->$cb($msg_id);
                 });
             },
+        );
+    }
+
+    method list_output_modules (CodeRef $cb) {
+        my @modules;
+        my $collect;
+        $collect = sub {
+            my ($self, $code, $msg, $final) = @_;
+            if ($final) {
+                $self->$cb(@modules);
+            }
+            else {
+                push @modules, $msg;
+                $self->_receive_reply($collect);
+            }
+        };
+
+        $self->send_command(
+            cmd => 'LIST OUTPUT_MODULES',
+            cb  => $collect,
         );
     }
 
