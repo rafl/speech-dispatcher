@@ -203,6 +203,25 @@ class Speech::Dispatcher {
         );
     }
 
+    method list_synthesis_voices (CodeRef $cb) {
+        my @voices;
+        $self->send_command(
+            cmd => 'LIST SYNTHESIS_VOICES',
+            cb  => sub {
+                shift->_receive_list(@_, \@voices, sub {
+                    shift->$cb(map {
+                        my ($name, $lang, $variant) = split /\s+/, $_;
+                        {
+                            name     => $name,
+                            language => $lang,
+                            ($variant eq 'none' ? () : (variant => $variant)),
+                        }
+                    } @voices);
+                });
+            },
+        );
+    }
+
     method DEMOLISH {
         return if in_global_destruction;
         return unless $self->_has_handle;
