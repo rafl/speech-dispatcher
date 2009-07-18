@@ -177,23 +177,21 @@ class Speech::Dispatcher {
         );
     }
 
+    method _receive_list (PositiveInt $code, Str $msg, Bool $final, ArrayRef $acc, CodeRef $cb) {
+        if ($final) {
+            $self->$cb(@{ $acc });
+        }
+        else {
+            push @{ $acc }, $msg;
+            $self->_receive_reply(sub { shift->_receive_list(@_, $acc, $cb) });
+        }
+    }
+
     method list_output_modules (CodeRef $cb) {
         my @modules;
-        my $collect;
-        $collect = sub {
-            my ($self, $code, $msg, $final) = @_;
-            if ($final) {
-                $self->$cb(@modules);
-            }
-            else {
-                push @modules, $msg;
-                $self->_receive_reply($collect);
-            }
-        };
-
         $self->send_command(
             cmd => 'LIST OUTPUT_MODULES',
-            cb  => $collect,
+            cb  => sub { shift->_receive_list(@_, \@modules, $cb) },
         );
     }
 
