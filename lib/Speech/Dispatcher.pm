@@ -1,3 +1,4 @@
+use 5.010;
 use MooseX::Declare;
 
 class Speech::Dispatcher {
@@ -113,10 +114,34 @@ class Speech::Dispatcher {
         $self->handle->push_write(
             join q{ } => $cmd, @{ $args }, "\r\n",
         );
-        $self->handle->push_read(line => sub {
-            my (undef, $reply) = @_;
-            $self->$cb($reply)
+        $self->_receive_reply(sub {
+            my ($self, $code, $rest) = @_;
+            $self->$cb($code, $rest)
                 if $cb;
+        });
+    }
+
+    method _parse_reply (Str $reply) {
+        my ($code, $rest) = $reply =~ /^(\d+)[-\s](.*)$/;
+        return ($code, $rest);
+    }
+
+    method _receive_reply (CodeRef $cb) {
+        weaken $self;
+        $self->handle->push_read(line => sub {
+            my (undef, $msg) = @_;
+            my ($code, $rest) = $self->_parse_reply($msg);
+
+            given ($code) {
+                when (/^3/)    { confess qq{Received server error $code: $rest} }
+                when (/^[45]/) {
+                    confess qq{Received client error $code: $rest.}
+                      . ' This is most likely a bug in Speech::Dispatcher.'
+                      . ' Please inform the author.'
+                }
+            }
+
+            $self->$cb($code, $rest);
         });
     }
 
@@ -139,12 +164,13 @@ class Speech::Dispatcher {
                 $self->handle->push_write("$text\r\n.\r\n");
 
                 my $msg_id;
-                $self->handle->push_read(line => sub {
-                    my (undef, $msg) = @_;
-                    $msg_id = (split '-', $msg)[1];
+                $self->_receive_reply(sub {
+                    my ($self, $code, $rest) = @_;
+                    $msg_id = $rest;
                 });
 
-                $self->handle->push_read(line => sub {
+                $self->_receive_reply(sub {
+                    my ($self, $code, $rest) = @_;
                     $self->$cb($msg_id);
                 });
             },
