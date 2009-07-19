@@ -112,7 +112,6 @@ class Speech::Dispatcher {
     }
 
     method send_command (:$cmd, :$args = [], :$cb) {
-        weaken $self;
         $self->_send_data(join q{ } => $cmd, @{ $args });
         $self->_receive_reply(sub {
             my $self = shift;
@@ -157,10 +156,10 @@ class Speech::Dispatcher {
     }
 
     method say (Str $text, CodeRef $cb) {
-        weaken $self;
         $self->send_command(
             cmd => 'SPEAK',
             cb  => sub {
+                my ($self) = @_;
                 $self->_send_data($text, '.');
 
                 my $msg_id;
